@@ -3,7 +3,7 @@ require("dotenv").config({ path: ".env" });
 module.exports = {
   siteMetadata: {
     title: `Pretannia`,
-    siteUrl: `https://www.yourdomain.tld`
+    siteUrl: `https://www.pertannia.com`
   },
   plugins: [
     "gatsby-plugin-image",

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Container, Box } from 'theme-ui'
 import { Link } from 'gatsby'
+import { Box } from 'grommet';
 
 const Template = ({ pageTitle, children }) => {
   return (

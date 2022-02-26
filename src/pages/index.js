@@ -2,43 +2,42 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import Pagelayout from "../components/layout"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { Box, Main, Card, CardBody, CardFooter, CardHeader, Text } from 'grommet';
+import { Grommet, Main, Heading, Header, Paragraph, Footer, Button, Text, Icons, Menu, Anchor } from 'grommet';
+import BackgroundImage from 'gatsby-background-image' 
+import { convertToBgImage } from "gbimage-bridge"
+
+
 
 const IndexPage = ({ data }) => {
   const page = data.directus.Page_by_id
   const characters = data.directus.character
   const classes = data.directus.character_class
 
-  return (
-    <Pagelayout pageTitle={page.title}>
-      <Main>
-        <Box p={4} bg="muted" sx={{ flex: '1 1 auto' }}>
-          <div dangerouslySetInnerHTML={{ __html: page.content }} />
-          <GatsbyImage image={page.banner.imageFile.childImageSharp.gatsbyImageData} alt={page.banner.id} />
-        </Box>
-        {
-          characters.map((character, i) => (
-            <Box p={4} bg="muted" key={character.id} sx={{ flex: '1 1 auto' }}>
-              <Card sx={{ maxWidth: 256, }}>
-                <Text sx={{ fontSize: 4, fontWeight: 'bold', }}>
-                  {character.name}
-                </Text >
-              </Card>
-            </Box>
-          ))
-        }
+  const bgImage = convertToBgImage(page.banner.imageFile.childImageSharp.fluid)
 
-        {
-          classes.map((character, i) => (
-            <Box bg="muted" key={character.id} p={4}>
-              <h2>
-                {character.name}
-              </h2>
-            </Box>
-          ))
-        }
+  return (
+    <div>
+      <Header background="brand">
+        <Button hoverIndicator />
+      </Header>
+      <Main pad="large">
+        <BackgroundImage
+          Tag="section"
+          fluid={page.banner.imageFile.childImageSharp.fluid}
+          {...bgImage}
+          preserveStackingContext
+        >
+
+          <Heading>Something</Heading>
+          <Paragraph>Something about something</Paragraph>
+          <GatsbyImage image={page.banner.imageFile.childImageSharp.gatsbyImageData} alt={page.banner.id} />
+        </BackgroundImage>
       </Main>
-    </Pagelayout >
+      <Footer background="brand" pad="medium">
+        <Text>Copyright</Text>
+      </Footer>
+    </div>
+
   )
 }
 
@@ -54,6 +53,9 @@ export const query = graphql`
           imageFile {					
 						childImageSharp {
 							gatsbyImageData(width: 500, layout: FIXED, formats: [AUTO, WEBP])
+              fluid(quality: 90, maxWidth: 4160) {
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
+              }
 						}
 					}
         }

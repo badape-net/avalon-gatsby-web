@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 
 const Template = ({ pageTitle, children }) => {
   return (
-    <Container>
+    <Box>
       <title>{pageTitle}</title>
       {children}
       <footer
@@ -22,7 +22,7 @@ const Template = ({ pageTitle, children }) => {
           </Link>
         </Box>
       </footer>
-    </Container>
+    </Box>
   )
 }
 

@@ -1,29 +1,28 @@
-import * as React from 'react'
-import { Link } from 'gatsby'
-import { Box } from 'grommet';
+import React from "react"
+import PropTypes from "prop-types"
+import { useStaticQuery, graphql } from "gatsby"
+import { Box } from '@chakra-ui/react'
 
-const Template = ({ pageTitle, children }) => {
+const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+
   return (
     <Box>
-      <title>{pageTitle}</title>
       {children}
-      <footer
-        sx={{
-          width: '100%',
-        }}>
-        <Box>
-          <Link to="about" activeClassName="active" sx={{
-            color: 'inherit',
-            '&.active': {
-              color: 'primary',
-            },
-          }}>
-            Link
-          </Link>
-        </Box>
-      </footer>
     </Box>
   )
 }
 
-export default Template
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
+export default Layout

@@ -1,74 +1,112 @@
 import * as React from "react"
+import ReactMarkdown from 'react-markdown'
 import { graphql } from "gatsby"
-import Pagelayout from "../components/layout"
-import { GatsbyImage } from "gatsby-plugin-image"
-import { Grommet, Main, Heading, Header, Paragraph, Footer, Button, Text, Icons, Menu, Anchor } from 'grommet';
-import BackgroundImage from 'gatsby-background-image' 
-import { convertToBgImage } from "gbimage-bridge"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
+import { Container, VStack, Box } from '@chakra-ui/react'
 
+import Layout from "../components/layout"
+import Seo from "../components/seo"
+import Section from "../components/section"
 
 const IndexPage = ({ data }) => {
-  const page = data.directus.Page_by_id
-  const characters = data.directus.character
-  const classes = data.directus.character_class
+  const page = data.directus.home
+  const characters = data.directus.home.sections[0].related_Page_id
+  const map = data.directus.home.sections[1].related_Page_id
+  const news = data.directus.home.sections[2].related_Page_id
 
-  const bgImage = convertToBgImage(page.banner.imageFile.childImageSharp.fluid)
+  console.log(news)
+
+  const fgImage = getImage(page.logo.imageFile)
 
   return (
-    <div>
-      <Header background="brand">
-        <Button hoverIndicator />
-      </Header>
-      <Main pad="large">
-        <BackgroundImage
-          Tag="section"
-          fluid={page.banner.imageFile.childImageSharp.fluid}
-          {...bgImage}
-          preserveStackingContext
-        >
+    <Layout w="100%">
+      <Seo title="Home" />
+      <VStack align='stretch'>
+        <Section h="full" w="full" bannerImage={page.banner} >
+          <Container>
+            <VStack>
+              <Box>
+                <GatsbyImage image={fgImage} alt={page.banner.id} />
+              </Box>
+              <Box>
+                <ReactMarkdown>
+                  {page.brief}
+                </ReactMarkdown>
+              </Box>
+            </VStack>
+          </Container>
+        </Section>
 
-          <Heading>Something</Heading>
-          <Paragraph>Something about something</Paragraph>
-          <GatsbyImage image={page.banner.imageFile.childImageSharp.gatsbyImageData} alt={page.banner.id} />
-        </BackgroundImage>
-      </Main>
-      <Footer background="brand" pad="medium">
-        <Text>Copyright</Text>
-      </Footer>
-    </div>
+        <Section h="full" w="full" bannerImage={characters.banner} >
+          <Container>
+            <ReactMarkdown>
+              {characters.brief}
+            </ReactMarkdown>
+          </Container>
+        </Section>
 
+        <Section h="full" w="full" bannerImage={news.banner} >
+          <Container>
+            <ReactMarkdown>
+              {news.brief}
+            </ReactMarkdown>
+          </Container>
+        </Section>
+
+        <Section h="full" w="full" bannerImage={map.banner} >
+          <Container>
+            <ReactMarkdown>
+              {map.brief}
+            </ReactMarkdown>
+          </Container>
+        </Section>
+
+      </VStack>
+
+    </Layout>
   )
 }
 
 export const query = graphql`
   query {
     directus {
-      Page_by_id(id: 1 ) {
+      home: Page_by_id(id: 1 ) {
         title
         content
         slug
+        brief
+        sections {
+          related_Page_id {
+            slug
+            brief
+            title
+            banner {
+              id
+              imageFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder: TRACED_SVG, width: 1000, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
+                }
+              }
+            }
+          }
+        }
         banner {
           id
           imageFile {					
 						childImageSharp {
-							gatsbyImageData(width: 500, layout: FIXED, formats: [AUTO, WEBP])
-              fluid(quality: 90, maxWidth: 4160) {
-                ...GatsbyImageSharpFluid_withWebp_tracedSVG
-              }
+							gatsbyImageData(placeholder: TRACED_SVG, width: 1000, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
 						}
 					}
         }
-      }
-    }
-    directus {
-      character {
-        id
-        name        
-      }
-      character_class {
-        id
-        name        
+        logo {
+          id
+          imageFile {					
+						childImageSharp {
+							gatsbyImageData(placeholder: BLURRED, width: 500, layout: FIXED, formats: [AUTO, WEBP, AVIF])
+						}
+					}
+        }
       }
     }
   }

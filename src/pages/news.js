@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
+import ReactMarkdown from 'react-markdown'
 import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
+
+import { Container, VStack, Box } from '@chakra-ui/react'
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -10,15 +14,27 @@ const IndexPage = ({ data }) => {
   const page = data.directus.page
   const news = data.directus.news
 
-  console.log(news)
+  const fgImage = getImage(page.logo.imageFile)
 
   return (
     <Layout>
       <Seo title="News" />
-      <Section bannerImage={page.banner} >
-      </Section>
-
-
+      <VStack align='stretch'>
+        <Section h="full" w="full" bannerImage={page.banner} >
+          <Container>
+            <VStack>
+              <Box>
+                <GatsbyImage image={fgImage} alt={page.banner.id} />
+              </Box>
+              <Box>
+                <ReactMarkdown>
+                  {page.brief}
+                </ReactMarkdown>
+              </Box>
+            </VStack>
+          </Container>
+        </Section>
+      </VStack>
     </Layout>
   )
 }

@@ -15,8 +15,6 @@ const IndexPage = ({ data }) => {
   const map = data.directus.home.sections[1].related_Page_id
   const news = data.directus.home.sections[2].related_Page_id
 
-  console.log(news)
-
   const fgImage = getImage(page.logo.imageFile)
 
   return (

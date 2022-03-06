@@ -1,28 +1,17 @@
-
-import PropTypes from "prop-types"
 import React from "react"
-import { Box, Heading, Text} from '@chakra-ui/react'
+import { Box, Badge } from '@chakra-ui/react'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-const CharacterCard = ({ siteTitle }) => (
-<Box  height="small" width="small" background="light-1">
-  <Heading pad="medium">Header</Heading>
-  <CardBody pad="medium">Body</CardBody>
-  <Text pad={{horizontal: "small"}} background="light-2">
-    <Button
-    icon={<Icons.Favorite color="red" />}
-    hoverIndicator
-    />
-    <Button icon={<Icons.ShareOption color="plain" />} hoverIndicator />
-  </Text>
-</Box>
-)
+const CharacterCard = ({ character }) => {
+  console.log(character)
+  const profileImage = getImage(character.profile.imageFile.childImageSharp.gatsbyImageData)
 
-CharacterCard.propTypes = {
-  siteTitle: PropTypes.string,
-}
 
-CharacterCard.defaultProps = {
-  siteTitle: ``,
+  return (
+    <Box w="100%" overflow='hidden'>
+      <GatsbyImage image={profileImage} alt={character.profile.id} />
+    </Box>
+  )
 }
 
 export default CharacterCard

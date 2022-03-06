@@ -1,5 +1,5 @@
 import React from "react"
-import { Box, AspectRatio } from '@chakra-ui/react'
+import { AspectRatio, Box } from '@chakra-ui/react'
 import { getImage } from "gatsby-plugin-image"
 import BackgroundImage from 'gatsby-background-image'
 import { convertToBgImage } from "gbimage-bridge"
@@ -13,9 +13,9 @@ const Section = ({ bannerImage, children }) => {
       {...bgImage}
       preserveStackingContext
     >
-      <AspectRatio ratio={16 / 9}>
+      <Box height="100vh" w="100%">
         {children}
-      </AspectRatio>
+      </Box>
     </BackgroundImage>
   )
 }

@@ -8,6 +8,7 @@ import { Container, VStack, Box } from '@chakra-ui/react'
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Section from "../components/section"
+import NavBar from "../components/navbar"
 
 const IndexPage = ({ data }) => {
   const page = data.directus.home
@@ -20,8 +21,10 @@ const IndexPage = ({ data }) => {
   return (
     <Layout w="100%">
       <Seo title="Home" />
+
       <VStack align='stretch'>
-        <Section h="full" w="full" bannerImage={page.banner} >
+        <Section bannerImage={page.banner} >
+          <NavBar links={[]} />
           <Container>
             <VStack>
               <Box>

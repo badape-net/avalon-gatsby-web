@@ -97,7 +97,7 @@ export const query = graphql`
               id
               imageFile {
                 childImageSharp {
-                  gatsbyImageData(placeholder: TRACED_SVG, width: 1000, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
+                  gatsbyImageData(placeholder: TRACED_SVG, width: 1024, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
                 }
               }
             }
@@ -107,7 +107,7 @@ export const query = graphql`
           id
           imageFile {					
 						childImageSharp {
-							gatsbyImageData(placeholder: TRACED_SVG, width: 1000, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
+							gatsbyImageData(placeholder: TRACED_SVG, width: 1024, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
 						}
 					}
         }
@@ -115,7 +115,7 @@ export const query = graphql`
           id
           imageFile {					
 						childImageSharp {
-							gatsbyImageData(placeholder: BLURRED, width: 500, layout: FIXED, formats: [AUTO, WEBP, AVIF])
+							gatsbyImageData(placeholder: BLURRED, width: 512, layout: FIXED, formats: [AUTO, WEBP, AVIF])
 						}
 					}
         }
@@ -126,7 +126,7 @@ export const query = graphql`
           id
           imageFile {					
 						childImageSharp {
-							gatsbyImageData(placeholder: TRACED_SVG, width: 1000, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
+							gatsbyImageData(placeholder: TRACED_SVG, width: 512, layout: CONSTRAINED, formats: [AUTO, WEBP, AVIF])
 						}
 					}
         }

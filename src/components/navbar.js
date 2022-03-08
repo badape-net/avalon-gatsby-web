@@ -1,9 +1,9 @@
 import React from "react"
+import { Link } from "gatsby"
 import {
   Box,
   Flex,
   HStack,
-  Link,
   IconButton,
   useDisclosure,
   useColorModeValue,
@@ -11,14 +11,14 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-const Links = ['Dashboard', 'Projects', 'Team'];
+const Links = [{'key':'news', value: 'News'}, {'key':'gameplay', value: 'Game'}];
 
 const NavBar = ({ links }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
+      <Box px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             size={'md'}
@@ -34,18 +34,17 @@ const NavBar = ({ links }) => {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <Link key={link}>{link}</Link>
+                <Link to={link.key}>{link.value}</Link>
               ))}
             </HStack>
           </HStack>
-          
         </Flex>
 
         {isOpen ? (
           <Box pb={4} display={{ md: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
-                <Link key={link}>{link}</Link>
+                <Link to={link.key}>{link.value}</Link>
               ))}
             </Stack>
           </Box>
